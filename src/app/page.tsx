@@ -218,18 +218,18 @@ export default function Home() {
           </div>
           
           {/* Top Banner Ad Placeholder */}
-          <div className="hidden md:flex bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-[468px] h-[60px] items-center justify-center text-slate-400 text-sm shadow-xl relative group cursor-pointer hover:bg-white/10 transition-all duration-300">
+          <div className="hidden lg:flex bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-[468px] h-[60px] items-center justify-center text-slate-400 text-sm shadow-xl relative group cursor-pointer hover:bg-white/10 transition-all duration-300">
             <span className="font-medium tracking-wider">Top Banner Ad (468x60)</span>
             <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-2xl border-b border-l border-white/10">AD</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
           
           {/* Main Player Section */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 md:space-y-6">
             {/* Player Container */}
-            <div className="relative w-full aspect-video bg-black rounded-[2rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 flex items-center justify-center group/player">
+            <div className="relative w-full aspect-video bg-black rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 flex items-center justify-center group/player">
               
               {/* Stream Error Message */}
               {isStreamError && !showingAd ? (
@@ -319,18 +319,18 @@ export default function Home() {
             </div>
 
             {/* Below Player Banner Ad (Live Adsterra) */}
-            <div className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] h-[100px] flex items-center justify-center shadow-xl relative overflow-hidden">
-              <div className="scale-75 md:scale-100 flex items-center justify-center">
+            <div className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl md:rounded-[2rem] h-[60px] sm:h-[80px] md:h-[100px] flex items-center justify-center shadow-xl relative overflow-hidden">
+              <div className="scale-[0.4] sm:scale-[0.6] md:scale-100 origin-center flex items-center justify-center">
                 <BannerAd728x90 />
               </div>
-              <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-[2rem] border-b border-l border-white/10 z-10 pointer-events-none">AD</span>
+              <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-2xl md:rounded-tr-[2rem] border-b border-l border-white/10 z-10 pointer-events-none">AD</span>
             </div>
 
             {/* Channel Info Card */}
-            <div className="bg-white/5 backdrop-blur-2xl p-8 rounded-[2rem] border border-white/10 flex justify-between items-center shadow-xl">
+            <div className="bg-white/5 backdrop-blur-2xl p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-xl gap-4">
               <div>
-                <h2 className="text-3xl font-bold text-white tracking-tight">{activeChannel.name}</h2>
-                <p className="text-cyan-400 flex items-center gap-2 mt-2 font-medium">
+                <h2 className="text-xl md:text-3xl font-bold text-white tracking-tight">{activeChannel.name}</h2>
+                <p className="text-cyan-400 flex items-center gap-2 mt-1 md:mt-2 text-sm md:text-base font-medium">
                   <Tv className="w-4 h-4" /> {activeCategory.category}
                 </p>
               </div>
@@ -338,11 +338,11 @@ export default function Home() {
           </div>
 
           {/* Sidebar Navigation */}
-          <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 flex flex-col h-[calc(100vh-200px)] min-h-[600px] shadow-2xl relative overflow-hidden">
+          <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl md:rounded-[2rem] p-4 md:p-6 flex flex-col h-[500px] md:h-[calc(100vh-200px)] md:min-h-[600px] shadow-2xl relative overflow-hidden">
             {/* Sidebar Ambient Glow */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-3 relative z-10">
+            <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center gap-3 relative z-10">
               <div className="p-2 bg-cyan-500/20 rounded-xl border border-cyan-500/30">
                 <Globe className="w-5 h-5 text-cyan-400" />
               </div>
