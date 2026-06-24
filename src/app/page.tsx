@@ -5,57 +5,67 @@ import Hls from 'hls.js'
 
 // We will fetch the channel data dynamically now
 const BannerAd728x90 = () => {
-  const bannerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!bannerRef.current || bannerRef.current.firstChild) return;
-    
-    const conf = document.createElement('script');
-    conf.type = 'text/javascript';
-    conf.innerHTML = `atOptions = {
-      'key' : 'a0af991fff128a94e1d5c40992c27c0d',
-      'format' : 'iframe',
-      'height' : 90,
-      'width' : 728,
-      'params' : {}
-    };`;
-    
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://www.highperformanceformat.com/a0af991fff128a94e1d5c40992c27c0d/invoke.js';
-    
-    bannerRef.current.appendChild(conf);
-    bannerRef.current.appendChild(script);
-  }, []);
-
-  return <div ref={bannerRef} className="w-[728px] h-[90px] mx-auto flex items-center justify-center overflow-hidden"></div>
+  return (
+    <iframe
+      srcDoc={`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <style>body { margin: 0; padding: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; background: transparent; }</style>
+          </head>
+          <body>
+            <script type="text/javascript">
+              atOptions = {
+                'key' : 'a0af991fff128a94e1d5c40992c27c0d',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/a0af991fff128a94e1d5c40992c27c0d/invoke.js"></script>
+          </body>
+        </html>
+      `}
+      width="728"
+      height="90"
+      frameBorder="0"
+      scrolling="no"
+      className="w-[728px] h-[90px] mx-auto border-none bg-transparent"
+    ></iframe>
+  );
 }
 
 const BannerAd300x250 = () => {
-  const bannerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!bannerRef.current || bannerRef.current.firstChild) return;
-    
-    const conf = document.createElement('script');
-    conf.type = 'text/javascript';
-    conf.innerHTML = `atOptions = {
-      'key' : 'f768366d0f048200db999a4dc10cc650',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };`;
-    
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://www.highperformanceformat.com/f768366d0f048200db999a4dc10cc650/invoke.js';
-    
-    bannerRef.current.appendChild(conf);
-    bannerRef.current.appendChild(script);
-  }, []);
-
-  return <div ref={bannerRef} className="w-[300px] h-[250px] mx-auto flex items-center justify-center overflow-hidden"></div>
+  return (
+    <iframe
+      srcDoc={`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <style>body { margin: 0; padding: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; background: transparent; }</style>
+          </head>
+          <body>
+            <script type="text/javascript">
+              atOptions = {
+                'key' : 'f768366d0f048200db999a4dc10cc650',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+              };
+            </script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/f768366d0f048200db999a4dc10cc650/invoke.js"></script>
+          </body>
+        </html>
+      `}
+      width="300"
+      height="250"
+      frameBorder="0"
+      scrolling="no"
+      className="w-[300px] h-[250px] mx-auto border-none bg-transparent"
+    ></iframe>
+  );
 }
 
 export default function Home() {
