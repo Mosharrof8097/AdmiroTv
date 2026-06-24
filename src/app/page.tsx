@@ -31,6 +31,33 @@ const BannerAd728x90 = () => {
   return <div ref={bannerRef} className="w-[728px] h-[90px] mx-auto flex items-center justify-center overflow-hidden"></div>
 }
 
+const BannerAd300x250 = () => {
+  const bannerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!bannerRef.current || bannerRef.current.firstChild) return;
+    
+    const conf = document.createElement('script');
+    conf.type = 'text/javascript';
+    conf.innerHTML = `atOptions = {
+      'key' : 'f768366d0f048200db999a4dc10cc650',
+      'format' : 'iframe',
+      'height' : 250,
+      'width' : 300,
+      'params' : {}
+    };`;
+    
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://www.highperformanceformat.com/f768366d0f048200db999a4dc10cc650/invoke.js';
+    
+    bannerRef.current.appendChild(conf);
+    bannerRef.current.appendChild(script);
+  }, []);
+
+  return <div ref={bannerRef} className="w-[300px] h-[250px] mx-auto flex items-center justify-center overflow-hidden"></div>
+}
+
 export default function Home() {
   const [channelsData, setChannelsData] = useState<any[]>([])
   const [activeCategory, setActiveCategory] = useState<any>(null)
@@ -388,11 +415,10 @@ export default function Home() {
                 )
               })}
               
-              {/* Sidebar Square Ad Placeholder */}
-              <div className="mt-8 w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] h-[250px] flex flex-col items-center justify-center text-slate-400 text-sm shadow-xl relative overflow-hidden group hover:bg-white/10 transition-colors">
-                <span className="font-medium tracking-wider">Sidebar Ad Space</span>
-                <span className="text-xs text-cyan-500/70 mt-1">(Square Banner - 300x250)</span>
-                <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-[2rem] border-b border-l border-white/10">AD</span>
+              {/* Sidebar Square Ad (Live Adsterra) */}
+              <div className="mt-8 w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] h-[250px] flex items-center justify-center shadow-xl relative overflow-hidden">
+                <BannerAd300x250 />
+                <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-[2rem] border-b border-l border-white/10 z-10 pointer-events-none">AD</span>
               </div>
             </div>
 
