@@ -1,0 +1,36 @@
+name: Auto Update TV Channels
+
+on:
+  schedule:
+    - cron: '0 */12 * * *' # Runs every 12 hours automatically
+  workflow_dispatch: # Allows you to trigger it manually from GitHub
+
+jobs:
+  update-channels:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Run Deep Ping Filter Script
+        run: node scripts/update-channels.mjs
+        
+      - name: Commit and Push Updated Channels
+        run: |
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "action@github.com"
+          git add public/channels.json
+          
+          # Check if channels.json actually changed, then commit and push
+          if ! git diff --staged --quiet; then
+            git commit -m "auto: Updated working TV channels (Deep Filter)"
+            git push
+          else
+            echo "No changes in channels.json"
+          fi
