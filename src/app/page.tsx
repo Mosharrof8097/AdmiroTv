@@ -217,10 +217,10 @@ export default function Home() {
             </div>
           </div>
           
-          {/* Top Banner Ad Placeholder */}
-          <div className="hidden lg:flex bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-[468px] h-[60px] items-center justify-center text-slate-400 text-sm shadow-xl relative group cursor-pointer hover:bg-white/10 transition-all duration-300">
-            <span className="font-medium tracking-wider">Top Banner Ad (468x60)</span>
-            <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-2xl border-b border-l border-white/10">AD</span>
+          {/* Top Banner Ad (Live Adsterra) */}
+          <div className="hidden lg:flex bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-[728px] h-[90px] items-center justify-center text-slate-400 text-sm shadow-xl relative group overflow-hidden">
+            <BannerAd728x90 />
+            <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-2xl border-b border-l border-white/10 z-10">AD</span>
           </div>
         </div>
 
@@ -247,8 +247,10 @@ export default function Home() {
                   <span className="text-cyan-400 text-xs mb-6 uppercase tracking-[0.2em] font-bold border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 rounded-full">
                     Sponsor Message
                   </span>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://ui-avatars.com/api/?name=Premium+Brand&background=random&color=fff&size=512&font-size=0.1" alt="Ad" className="h-32 md:h-48 rounded-2xl mb-8 shadow-2xl animate-pulse ring-1 ring-white/10" />
+                  {/* Live Welcome Ad (Adsterra 300x250) */}
+                  <div className="mb-8 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 bg-black">
+                    <BannerAd300x250 />
+                  </div>
                   
                   {adTimeLeft > 0 ? (
                     <button disabled className="bg-white/5 text-slate-300 px-8 py-3 rounded-full font-semibold border border-white/10 shadow-inner backdrop-blur-md">
