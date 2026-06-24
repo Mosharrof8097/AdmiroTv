@@ -4,6 +4,33 @@ import { Tv, Film, Globe, Gamepad2, MonitorPlay } from 'lucide-react'
 import Hls from 'hls.js'
 
 // We will fetch the channel data dynamically now
+const BannerAd728x90 = () => {
+  const bannerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!bannerRef.current || bannerRef.current.firstChild) return;
+    
+    const conf = document.createElement('script');
+    conf.type = 'text/javascript';
+    conf.innerHTML = `atOptions = {
+      'key' : 'a0af991fff128a94e1d5c40992c27c0d',
+      'format' : 'iframe',
+      'height' : 90,
+      'width' : 728,
+      'params' : {}
+    };`;
+    
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://www.highperformanceformat.com/a0af991fff128a94e1d5c40992c27c0d/invoke.js';
+    
+    bannerRef.current.appendChild(conf);
+    bannerRef.current.appendChild(script);
+  }, []);
+
+  return <div ref={bannerRef} className="w-[728px] h-[90px] mx-auto flex items-center justify-center overflow-hidden"></div>
+}
+
 export default function Home() {
   const [channelsData, setChannelsData] = useState<any[]>([])
   const [activeCategory, setActiveCategory] = useState<any>(null)
@@ -264,11 +291,12 @@ export default function Home() {
               )}
             </div>
 
-            {/* Below Player Banner Ad */}
-            <div className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] h-[100px] flex flex-col items-center justify-center text-slate-400 text-sm shadow-xl relative overflow-hidden group hover:bg-white/10 transition-colors">
-              <span className="font-medium tracking-wider">Main Banner Ad Space (728x90)</span>
-              <span className="text-xs text-cyan-500/70 mt-1">Insert Adsterra / Monetag Code</span>
-              <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-[2rem] border-b border-l border-white/10">AD</span>
+            {/* Below Player Banner Ad (Live Adsterra) */}
+            <div className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] h-[100px] flex items-center justify-center shadow-xl relative overflow-hidden">
+              <div className="scale-75 md:scale-100 flex items-center justify-center">
+                <BannerAd728x90 />
+              </div>
+              <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-[2rem] border-b border-l border-white/10 z-10 pointer-events-none">AD</span>
             </div>
 
             {/* Channel Info Card */}
