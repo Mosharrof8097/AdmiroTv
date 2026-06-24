@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AdmiroTV - Premium Free Live TV Portal 📺
 
-## Getting Started
+Welcome to **AdmiroTV**, a highly optimized, fully autonomous Free Live TV streaming portal built with modern web technologies. AdmiroTV provides access to over 1,000+ live premium TV channels from across the globe, wrapped in an ultra-premium "Glassmorphism" user interface.
 
-First, run the development server:
+## ✨ Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **1,000+ Live Channels:** Stream sports, news, kids, and entertainment channels for free.
+- **100% Autonomous (Self-Healing):** Powered by a custom Node.js automation script and GitHub Actions. Every 12 hours, the system automatically fetches thousands of IPTV links, deep-pings them to verify they are live (bypassing CDN blocks), and updates the database. Dead links are automatically removed!
+- **Premium UI/UX:** Stunning Dark Mode Glassmorphism design optimized for both Desktop and Mobile devices.
+- **Robust Video Player:** Built with `hls.js` featuring auto-buffering UI, fatal error handling (CORS/Geo-block detection), and smooth stream rendering.
+- **Smart Monetization:** Strategically placed, non-intrusive ad placeholders (728x90, 300x250, and timed overlay banners) tailored for Adsterra/Monetag. No annoying full-screen pop-ups on channel switches!
+- **SEO Optimized:** Fully configured with `robots.txt`, `sitemap.xml`, Open Graph tags, and standard metadata for Google Search indexing.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Technology Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js (App Router)
+- **Styling:** Tailwind CSS (Responsive Glassmorphism)
+- **Language:** TypeScript
+- **Video Streaming:** HLS.js
+- **Automation:** Node.js (Fetch & Deep Ping validation)
+- **CI/CD:** GitHub Actions & Netlify (Auto Deploy)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 How It Works (The Automation)
 
-## Learn More
+1. The `.github/workflows/update-channels.yml` file runs a cron job every 12 hours.
+2. It executes `scripts/update-channels.mjs` which fetches raw M3U lists from open-source IPTV repositories.
+3. The script tests each stream asynchronously using an `AbortController` and custom User-Agents to verify if the stream is truly playable.
+4. Only 100% active streams are formatted and saved to `public/channels.json`.
+5. GitHub Actions commits the updated JSON file to the `main` branch.
+6. Netlify detects the commit, rebuilds the site, and deploys the fresh channel list automatically.
 
-To learn more about Next.js, take a look at the following resources:
+## 💻 Local Development Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To run AdmiroTV locally on your machine:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Mosharrof8097/AdmiroTv.git
+   cd AdmiroTv
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Fetch initial live channels:**
+   ```bash
+   node scripts/update-channels.mjs
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser to watch live TV!
+
+## 📜 License & Disclaimer
+
+This project is built for educational purposes. It utilizes publicly available, free-to-air IPTV links from the internet. The developers do not host, store, or distribute any copyrighted media.
+
+---
+*Developed by Md. Mosharrof Hossain (AdmiroTech)*
