@@ -96,13 +96,13 @@ export default function Home() {
   // Initial Welcome Ad Timer (Only runs once)
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (showingAd && adTimeLeft > 0) {
+    if (!isLoading && showingAd && adTimeLeft > 0) {
       timer = setTimeout(() => setAdTimeLeft(p => p - 1), 1000)
-    } else if (showingAd && adTimeLeft === 0) {
+    } else if (!isLoading && showingAd && adTimeLeft === 0) {
       setShowingAd(false); // Auto-close welcome ad
     }
     return () => clearTimeout(timer)
-  }, [showingAd, adTimeLeft])
+  }, [isLoading, showingAd, adTimeLeft])
 
   // Overlay Ad Logic: Show a small banner 10 seconds after a video starts
   useEffect(() => {
