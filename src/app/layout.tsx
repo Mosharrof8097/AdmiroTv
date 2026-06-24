@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -34,7 +35,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {/* Adsterra Popunder */}
+        <Script src="https://pl29880789.effectivecpmnetwork.com/61/32/f9/6132f99d690aa26a27d19505701f7096.js" strategy="afterInteractive" />
+        {/* Adsterra SocialBar */}
+        <Script src="https://pl29880791.effectivecpmnetwork.com/30/1d/9a/301d9ac3c6eece2fb2f0c23bae362bcc.js" strategy="afterInteractive" />
+      </body>
     </html>
   );
 }

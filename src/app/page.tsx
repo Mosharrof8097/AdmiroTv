@@ -4,39 +4,8 @@ import { Tv, Film, Globe, Gamepad2, MonitorPlay } from 'lucide-react'
 import Hls from 'hls.js'
 
 // We will fetch the channel data dynamically now
-const BannerAd728x90 = () => {
-  return (
-    <iframe
-      srcDoc={`
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <style>body { margin: 0; padding: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; background: transparent; }</style>
-          </head>
-          <body>
-            <script type="text/javascript">
-              atOptions = {
-                'key' : 'a0af991fff128a94e1d5c40992c27c0d',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-              };
-            </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/a0af991fff128a94e1d5c40992c27c0d/invoke.js"></script>
-          </body>
-        </html>
-      `}
-      width="728"
-      height="90"
-      frameBorder="0"
-      scrolling="no"
-      className="w-[728px] h-[90px] mx-auto border-none bg-transparent"
-    ></iframe>
-  );
-}
 
-const BannerAd300x250 = () => {
+const createIframeAd = (key: string, width: number, height: number) => {
   return (
     <iframe
       srcDoc={`
@@ -48,25 +17,35 @@ const BannerAd300x250 = () => {
           <body>
             <script type="text/javascript">
               atOptions = {
-                'key' : 'f768366d0f048200db999a4dc10cc650',
+                'key' : '${key}',
                 'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
+                'height' : ${height},
+                'width' : ${width},
                 'params' : {}
               };
             </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/f768366d0f048200db999a4dc10cc650/invoke.js"></script>
+            <script type="text/javascript" src="https://www.highperformanceformat.com/${key}/invoke.js"></script>
           </body>
         </html>
       `}
-      width="300"
-      height="250"
+      width={width}
+      height={height}
       frameBorder="0"
       scrolling="no"
-      className="w-[300px] h-[250px] mx-auto border-none bg-transparent"
+      className="border-none bg-transparent mx-auto"
+      style={{ width: width + 'px', height: height + 'px' }}
     ></iframe>
   );
-}
+};
+
+const BannerAd728x90 = () => createIframeAd('a0af991fff128a94e1d5c40992c27c0d', 728, 90);
+const BannerAd300x250 = () => createIframeAd('f768366d0f048200db999a4dc10cc650', 300, 250);
+const BannerAd468x60 = () => createIframeAd('7182fdf182efe4b9a9d7f17e5e0b2829', 468, 60);
+const BannerAd320x50 = () => createIframeAd('c00afc80357fda89d9693d2b0277983b', 320, 50);
+const BannerAd160x600 = () => createIframeAd('3ac4f67be24a329810f67153a6ff3a01', 160, 600);
+const BannerAd160x300 = () => createIframeAd('07b7c80807abaf9c90f8f5663c4ec20b', 160, 300);
+
+
 
 export default function Home() {
   const [channelsData, setChannelsData] = useState<any[]>([])
@@ -125,6 +104,10 @@ export default function Home() {
 
   const handleChannelChange = (channel: any) => {
     if (channel.id === activeChannel.id) return;
+    
+    // Direct Link Adsterra
+    window.open('https://www.effectivecpmnetwork.com/pcwjhxu5fj?key=66ba808b1c1076cabecb4b3ce93dfccb', '_blank');
+    
     setActiveChannel(channel);
     setShowingAd(false); // NEVER show full screen ad on channel switch
     setShowOverlayAd(false); // Hide overlay temporarily
@@ -134,6 +117,7 @@ export default function Home() {
   }
 
   const skipAd = () => {
+    window.open('https://www.effectivecpmnetwork.com/pcwjhxu5fj?key=66ba808b1c1076cabecb4b3ce93dfccb', '_blank');
     setShowingAd(false);
   }
 
@@ -232,6 +216,10 @@ export default function Home() {
             <BannerAd728x90 />
             <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-2xl border-b border-l border-white/10 z-10">AD</span>
           </div>
+          <div className="flex lg:hidden bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl w-[320px] h-[50px] items-center justify-center text-slate-400 text-sm shadow-xl relative group overflow-hidden mx-auto mt-4">
+            <BannerAd320x50 />
+            <span className="absolute top-0 right-0 bg-cyan-500/20 text-cyan-400 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-2xl border-b border-l border-white/10 z-10">AD</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
@@ -299,14 +287,14 @@ export default function Home() {
               
               {/* Overlay Ad (Lower Third) */}
               {showOverlayAd && !showingAd && (
-                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-[85%] max-w-[500px] bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl p-3 shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-20 flex items-center justify-between animate-in slide-in-from-bottom-10 fade-in duration-500">
-                  <div className="flex items-center gap-3 w-full justify-center text-slate-200 text-sm font-medium">
-                     <span className="bg-cyan-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-md">AD</span>
-                     Place Overlay Banner Here
+                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl p-1 shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-20 flex items-center justify-center animate-in slide-in-from-bottom-10 fade-in duration-500">
+                  <div className="flex flex-col items-center justify-center w-[468px] h-[60px] relative overflow-hidden rounded-xl">
+                     <BannerAd468x60 />
+                     <span className="absolute top-0 left-0 bg-cyan-500 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-br-lg z-10">AD</span>
                   </div>
                   <button 
                     onClick={() => setShowOverlayAd(false)}
-                    className="absolute -top-3 -right-3 bg-slate-800 hover:bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs border border-white/20 transition-colors shadow-xl"
+                    className="absolute -top-3 -right-3 bg-slate-800 hover:bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs border border-white/20 transition-colors shadow-xl z-30"
                   >
                     ✕
                   </button>
