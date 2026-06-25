@@ -53,9 +53,9 @@ export default function Home() {
   const [activeChannel, setActiveChannel] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Fetch the auto-updated channels.json on load
+  // Fetch the auto-updated channels.json directly from GitHub to avoid Netlify rebuilds
   useEffect(() => {
-    fetch('/channels.json')
+    fetch('https://raw.githubusercontent.com/Mosharrof8097/AdmiroTv/main/public/channels.json')
       .then(res => res.json())
       .then(data => {
         // Only keep categories that have at least 1 channel
