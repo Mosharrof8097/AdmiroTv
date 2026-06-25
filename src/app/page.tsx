@@ -73,9 +73,8 @@ export default function Home() {
       });
   }, [])
   const [isPlaying, setIsPlaying] = useState(false)
-  const [showingAd, setShowingAd] = useState(true) // Only true on FIRST load
-  const [adTimeLeft, setAdTimeLeft] = useState(5)
-  const [showOverlayAd, setShowOverlayAd] = useState(false)
+  const [showingAd, setShowingAd] = useState(true)
+  const [adTimeLeft, setAdTimeLeft] = useState(3)
   const [isStreamError, setIsStreamError] = useState(false) // Track if the stream is dead
   const [isVideoBuffering, setIsVideoBuffering] = useState(true) // Track video buffering
   
@@ -93,31 +92,20 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [isLoading, showingAd, adTimeLeft])
 
-  // Overlay Ad Logic: Show a small banner 10 seconds after a video starts
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isPlaying && !showingAd && !isStreamError) {
-      timer = setTimeout(() => setShowOverlayAd(true), 10000); // 10 seconds delay
-    }
-    return () => clearTimeout(timer)
-  }, [isPlaying, activeChannel, showingAd, isStreamError])
+
 
   const handleChannelChange = (channel: any) => {
     if (channel.id === activeChannel.id) return;
     
-    // Direct Link Adsterra
-    window.open('https://www.effectivecpmnetwork.com/pcwjhxu5fj?key=66ba808b1c1076cabecb4b3ce93dfccb', '_blank');
-    
     setActiveChannel(channel);
-    setShowingAd(false); // NEVER show full screen ad on channel switch
-    setShowOverlayAd(false); // Hide overlay temporarily
+    setShowingAd(true); // Show full screen ad on channel switch
+    setAdTimeLeft(3);
     setIsPlaying(false);
     setIsStreamError(false); // Reset error state on new channel
     setIsVideoBuffering(true); // Show loading spinner immediately
   }
 
   const skipAd = () => {
-    window.open('https://www.effectivecpmnetwork.com/pcwjhxu5fj?key=66ba808b1c1076cabecb4b3ce93dfccb', '_blank');
     setShowingAd(false);
   }
 
@@ -285,21 +273,7 @@ export default function Home() {
                 </>
               )}
               
-              {/* Overlay Ad (Lower Third) */}
-              {showOverlayAd && !showingAd && (
-                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl p-1 shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-20 flex items-center justify-center animate-in slide-in-from-bottom-10 fade-in duration-500">
-                  <div className="flex flex-col items-center justify-center w-[468px] h-[60px] relative overflow-hidden rounded-xl">
-                     <BannerAd468x60 />
-                     <span className="absolute top-0 left-0 bg-cyan-500 text-black text-[9px] font-bold px-1.5 py-0.5 rounded-br-lg z-10">AD</span>
-                  </div>
-                  <button 
-                    onClick={() => setShowOverlayAd(false)}
-                    className="absolute -top-3 -right-3 bg-slate-800 hover:bg-red-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs border border-white/20 transition-colors shadow-xl z-30"
-                  >
-                    ✕
-                  </button>
-                </div>
-              )}
+
               
               {!showingAd && (
                 <>
